@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title> Company Home Page</title>
+</head>
+<body>
+    <h2>VQ company Home Page</h2>
+    <hr>
+        User: <span sec:authentication="principal.username"></span>
+    <br>
+        Role(s): <span sec:authentication="principal.authorities"></span>
+
+    <hr>
+    Welcome to the Anony18 company home page!
+    <hr>
+
+    <!-- Add a link to point to /leader ... this is for the managers -->
+    <div sec:authorize="hasRole('MANAGER')">
+        <p>
+            <a th:href="@{/leaders}">
+                Leadership Meeting
+            </a>
+                (Only for Manager peeps)
+        </p>
+    </div>
+
+    <!-- Add a link to point to /system ... this is for the admin -->
+    <div sec:authorize="hasRole('ADMIN')">
+        <p>
+            <a th:href="@{/systems}">
+            Admin Meeting
+            </a>
+            (Only for Admin peeps)
+        </p>
+    </div>
+
+    <!-- add login -->
+    <form action="#" th:action="@{/logout}" method="POST">
+        <input type="submit" value="Logout">
+    </form>
+
+</body>
+</html>
